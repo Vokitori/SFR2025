@@ -20,7 +20,7 @@ class KafkaProducer
         {
             string json = File.ReadAllText("research_papers.json");
             List<Paper>? papers = JsonSerializer.Deserialize<List<Paper>>(json);
-            for (int i = 0; i <= 10; i++)
+            for (int i = 0; i <= papers.Count; i++)
             {
                 try
                 {
