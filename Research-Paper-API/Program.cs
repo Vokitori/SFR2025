@@ -48,26 +48,29 @@ class KafkaProducer
 
             foreach(Paper paper in papers)
             {
-                try
+                if(paper.Id < 5)
                 {
-                    var researchPaper = new GenericRecord(avroSchema);
-                    researchPaper.Add("Id", paper.Id);
-                    researchPaper.Add("Name", paper.Name);
-                    researchPaper.Add("Authors", paper.Authors);
-                    researchPaper.Add("Keywords", paper.Keywords);
-
-                    var message = new Message<string, GenericRecord>
+                    try
                     {
-                        Key = Guid.NewGuid().ToString(),
-                        Value = researchPaper
-                    };
+                        var researchPaper = new GenericRecord(avroSchema);
+                        researchPaper.Add("Id", paper.Id);
+                        researchPaper.Add("Name", paper.Name);
+                        researchPaper.Add("Authors", paper.Authors);
+                        researchPaper.Add("Keywords", paper.Keywords);
 
-                    var deliveryReport = await producer.ProduceAsync(topic, message);
-                    Console.WriteLine($"Produced message to {deliveryReport.TopicPartitionOffset}");
-                }
-                catch (ProduceException<Null, string> e)
-                {
-                    Console.WriteLine($"Fehler beim Senden: {e.Error.Reason}");
+                        var message = new Message<string, GenericRecord>
+                        {
+                            Key = Guid.NewGuid().ToString(),
+                            Value = researchPaper
+                        };
+
+                        var deliveryReport = await producer.ProduceAsync(topic, message);
+                        Console.WriteLine($"Produced message to {deliveryReport.TopicPartitionOffset}");
+                    }
+                    catch (ProduceException<Null, string> e)
+                    {
+                        Console.WriteLine($"Fehler beim Senden: {e.Error.Reason}");
+                    }
                 }
             }
         }
