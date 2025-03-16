@@ -1,4 +1,5 @@
-﻿services:
+﻿version: '3.7'
+services:
   controller-1:
     image: apache/kafka:latest
     container_name: controller-1
@@ -94,3 +95,17 @@
       - controller-1
       - controller-2
       - controller-3
+
+  schema-registry:
+    image: confluentinc/cp-schema-registry:latest
+    container_name: schema-registry
+    ports:
+      - "8081:8081"
+    environment:
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: "PLAINTEXT://broker-1:19092,PLAINTEXT://broker-2:19092,PLAINTEXT://broker-3:19092"
+      SCHEMA_REGISTRY_LISTENERS: "http://0.0.0.0:8081"
+      SCHEMA_REGISTRY_HOST_NAME: "schema-registry"
+    depends_on:
+      - broker-1
+      - broker-2
+      - broker-3
