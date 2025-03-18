@@ -12,7 +12,8 @@ public class Paper : ISpecificRecord
             { ""name"": ""Id"", ""type"": ""int"" },
             { ""name"": ""Name"", ""type"": ""string"" },
             { ""name"": ""Authors"", ""type"": { ""type"": ""array"", ""items"": ""string"" } },
-            { ""name"": ""Keywords"", ""type"": { ""type"": ""array"", ""items"": ""string"" } }
+            { ""name"": ""Keywords"", ""type"": { ""type"": ""array"", ""items"": ""string"" } },
+            { ""name"": ""CountryOfPublication"", ""type"": ""string"" }
         ]
     }");
 
@@ -22,6 +23,7 @@ public class Paper : ISpecificRecord
     public string Name { get; set; }
     public List<string> Authors { get; set; }
     public List<string> Keywords { get; set; }
+    public string CountryOfPublication { get; set; }
 
     public object Get(int fieldPos)
     {
@@ -31,6 +33,7 @@ public class Paper : ISpecificRecord
             1 => Name,
             2 => Authors,
             3 => Keywords,
+            4 => CountryOfPublication,
             _ => throw new AvroRuntimeException("Unknown field position")
         };
     }
@@ -43,6 +46,7 @@ public class Paper : ISpecificRecord
             case 1: Name = (string)value; break;
             case 2: Authors = (List<string>)value; break;
             case 3: Keywords = (List<string>)value; break;
+            case 4: CountryOfPublication = (string)value; break;
             default: throw new AvroRuntimeException("Unknown field position");
         }
     }
