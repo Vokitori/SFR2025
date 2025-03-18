@@ -11,6 +11,9 @@
     <PackageReference Include="Confluent.Kafka" Version="2.8.0" />
     <PackageReference Include="Confluent.SchemaRegistry" Version="2.8.0" />
     <PackageReference Include="Confluent.SchemaRegistry.Serdes.Avro" Version="2.8.0" />
+    <PackageReference Include="Streamiz.Kafka.Net" Version="1.7.0" />
+    <PackageReference Include="Streamiz.Kafka.Net.SchemaRegistry.SerDes" Version="1.7.0" />
+    <PackageReference Include="Streamiz.Kafka.Net.SchemaRegistry.SerDes.Avro" Version="1.7.0" />
   </ItemGroup>
 
 </Project>
