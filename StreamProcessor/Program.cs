@@ -4,7 +4,6 @@ using Confluent.SchemaRegistry;
 using Confluent.SchemaRegistry.Serdes;
 using Avro.Generic;
 using Confluent.Kafka.SyncOverAsync;
-using StreamProcessor.models;
 using Avro.IO.Parsing;
 
 class KafkaConsumer
@@ -25,8 +24,8 @@ class KafkaConsumer
         };
 
         using var schemaRegistry = new CachedSchemaRegistryClient(schemaRegistryConfig);
-        using (var consumer = new ConsumerBuilder<string, GenericRecord>(config)
-            .SetValueDeserializer(new AvroDeserializer<GenericRecord>(schemaRegistry).AsSyncOverAsync())
+        using (var consumer = new ConsumerBuilder<string, Paper>(config)
+            .SetValueDeserializer(new AvroDeserializer<Paper>(schemaRegistry).AsSyncOverAsync())
             .Build())
         {
             consumer.Subscribe(topic);
@@ -46,7 +45,7 @@ class KafkaConsumer
                     {
                         var consumeResult = consumer.Consume(cts.Token);
                         Console.WriteLine($"Consumed message with key {consumeResult.Message.Key}: {consumeResult.Message.Value}");
-                        Paper paper = DeserializeToPaper(consumeResult.Message.Value);
+                        Paper paper = consumeResult.Message.Value;
                         papers.Add(paper);
                         Console.WriteLine($"Consumed Paper: Id={paper.Id}, Name={paper.Name}");
                         Console.WriteLine($"Authors: {string.Join(", ", paper.Authors)}");
@@ -67,16 +66,5 @@ class KafkaConsumer
                 consumer.Close();
             }
         }
-    }
-
-    private static Paper DeserializeToPaper(GenericRecord record)
-    {
-        return new Paper
-        {
-            Id = (int)record["Id"],
-            Name = (string)record["Name"],
-            Authors = ((IEnumerable<object>)record["Authors"]).Cast<string>().ToArray(),
-            Keywords = ((IEnumerable<object>)record["Keywords"]).Cast<string>().ToArray()
-        };
     }
 }

@@ -6,7 +6,6 @@ using Confluent.SchemaRegistry;
 using Confluent.SchemaRegistry.Serdes;
 using Avro;
 using Avro.Generic;
-using Research_Paper_API.models;
 using System.Text.Json;
 
 class KafkaProducer
@@ -39,9 +38,10 @@ class KafkaProducer
         };
 
         using var schemaRegistry = new CachedSchemaRegistryClient(schemaRegistryConfig);
-        using (var producer = new ProducerBuilder<string, GenericRecord>(config)
-           .SetValueSerializer(new AvroSerializer<GenericRecord>(schemaRegistry))
-           .Build())
+
+        using (var producer = new ProducerBuilder<string, Paper>(config)
+                   .SetValueSerializer(new AvroSerializer<Paper>(schemaRegistry))
+                   .Build())
         {
             string json = File.ReadAllText("research_papers.json");
             List<Paper>? papers = JsonSerializer.Deserialize<List<Paper>>(json);
@@ -52,16 +52,16 @@ class KafkaProducer
                 {
                     try
                     {
-                        var researchPaper = new GenericRecord(avroSchema);
-                        researchPaper.Add("Id", paper.Id);
-                        researchPaper.Add("Name", paper.Name);
-                        researchPaper.Add("Authors", paper.Authors);
-                        researchPaper.Add("Keywords", paper.Keywords);
+                        //var researchPaper = new GenericRecord(avroSchema);
+                        //researchPaper.Add("Id", paper.Id);
+                        //researchPaper.Add("Name", paper.Name);
+                        //researchPaper.Add("Authors", paper.Authors);
+                        //researchPaper.Add("Keywords", paper.Keywords);
 
-                        var message = new Message<string, GenericRecord>
+                        var message = new Message<string, Paper>
                         {
                             Key = Guid.NewGuid().ToString(),
-                            Value = researchPaper
+                            Value = paper
                         };
 
                         var deliveryReport = await producer.ProduceAsync(topic, message);
