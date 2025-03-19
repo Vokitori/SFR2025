@@ -46,7 +46,8 @@ class Program
             .GroupBy(new CountryMapper())
             .Count(InMemory.As<string, long>("paper-count-by-country"))
             .ToStream()
-            .To("PROCESSED_PAPERS");
+            .To("PROCESSED_PAPERS", new StringSerDes(), new SchemaAvroSerDes<long>()); ;
+
 
         var topology = builder.Build();
         var stream = new KafkaStream(topology, config);
