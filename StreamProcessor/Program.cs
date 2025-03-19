@@ -13,20 +13,6 @@ using static Confluent.Kafka.ConfigPropertyNames;
 using Streamiz.Kafka.Net.Stream;
 using Streamiz.Kafka.Net.Processors;
 
-/// <summary>
-/// 
-/// Topic PROCESSED_PAPERS needs to be added to Kafka before streams can be applied
-/// 
-/// fail: Streamiz.Kafka.Net.Kafka.Internal.RecordCollector[0]
-//stream-task[1|0] Error encountered sending record to topic PROCESSED_PAPERS for task 1-0 due to:
-//stream-task[1|0] Error Code : UnknownTopicOrPart
-//stream-task[1|0] Message : Broker: Unknown topic or partition
-//stream-task[1|0] Exception handler choose to FAIL the processing, no more records would be sent.fail: Streamiz.Kafka.Net.Kafka.Internal.RecordCollector[0]
-//stream-task[1|0] Error encountered sending record to topic PROCESSED_PAPERS for task 1-0 due to:
-//stream-task[1|0] Error Code : UnknownTopicOrPart
-//stream-task[1|0] Message : Broker: Unknown topic or partition
-//stream-task[1|0] Exception handler choose to FAIL the processing, no more records would be sent.
-/// </summary>
 
 class Program
 {
@@ -45,8 +31,12 @@ class Program
         builder.Stream<string, Paper>("research-paper")
             .GroupBy(new CountryMapper())
             .Count(InMemory.As<string, long>("paper-count-by-country"))
+                //.WithKeySerdes(new StringSerDes())
+                //.WithValueSerdes(new SchemaAvroSerDes<long>()))
             .ToStream()
-            .To("PROCESSED_PAPERS");
+
+        //.Foreach((key, value, context) => Console.WriteLine($"Key: {key}, Value: {value}"));
+        .To("PROCESSED_PAPERS");
 
         var topology = builder.Build();
         var stream = new KafkaStream(topology, config);

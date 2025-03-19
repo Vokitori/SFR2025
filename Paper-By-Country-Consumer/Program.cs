@@ -26,7 +26,7 @@ class Program
         {
             while (true)
             {
-                var result = consumer.Consume(CancellationToken.None);
+                var result = consumer.Consume(CancellationToken.None).Message;
                 Console.WriteLine($"Country: {result.Key}, Paper Count: {result.Value}");
             }
         }
