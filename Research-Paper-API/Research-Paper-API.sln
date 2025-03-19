@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Research-Paper-API", "Resea
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamProcessor", "..\StreamProcessor\StreamProcessor.csproj", "{AAAD6D15-802E-4071-9B42-C68DE74AFE06}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paper-By-Country-Consumer", "..\Paper-By-Country-Consumer\Paper-By-Country-Consumer.csproj", "{8BF46153-7E28-43F4-8E74-45D6AD59399E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{AAAD6D15-802E-4071-9B42-C68DE74AFE06}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AAAD6D15-802E-4071-9B42-C68DE74AFE06}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AAAD6D15-802E-4071-9B42-C68DE74AFE06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BF46153-7E28-43F4-8E74-45D6AD59399E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BF46153-7E28-43F4-8E74-45D6AD59399E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BF46153-7E28-43F4-8E74-45D6AD59399E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BF46153-7E28-43F4-8E74-45D6AD59399E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -50,7 +50,7 @@ class KafkaProducer
 
             foreach (Paper paper in papers)
             {
-                if(paper.Id < 5)
+                if(paper.Id>10 && paper.Id<15)
                 {
                     try
                     {
