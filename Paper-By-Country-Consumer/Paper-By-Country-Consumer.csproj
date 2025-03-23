@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net8.0</TargetFramework>
-    <RootNamespace>Research_Paper_API</RootNamespace>
+    <RootNamespace>Paper_By_Country_Consumer</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
@@ -12,15 +12,6 @@
     <PackageReference Include="Confluent.Kafka" Version="2.8.0" />
     <PackageReference Include="Confluent.SchemaRegistry" Version="2.8.0" />
     <PackageReference Include="Confluent.SchemaRegistry.Serdes.Avro" Version="2.8.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="research_papers.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="research_papers_with_country.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
 </Project>

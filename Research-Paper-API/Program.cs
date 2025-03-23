@@ -24,7 +24,9 @@ class KafkaProducer
                 { ""name"": ""Id"", ""type"": ""int"" },
                 { ""name"": ""Name"", ""type"": ""string"" },
                 { ""name"": ""Authors"", ""type"": { ""type"": ""array"", ""items"": ""string"" } },
-                { ""name"": ""Keywords"", ""type"": { ""type"": ""array"", ""items"": ""string"" } }
+                { ""name"": ""Keywords"", ""type"": { ""type"": ""array"", ""items"": ""string"" } },
+                { ""name"": ""CountryOfPublication"", ""type"": ""string"" }
+
             ]
         }";
 
@@ -43,12 +45,12 @@ class KafkaProducer
                    .SetValueSerializer(new AvroSerializer<Paper>(schemaRegistry))
                    .Build())
         {
-            string json = File.ReadAllText("research_papers.json");
+            string json = File.ReadAllText("research_papers_with_country.json");
             List<Paper>? papers = JsonSerializer.Deserialize<List<Paper>>(json);
 
-            foreach(Paper paper in papers)
+            foreach (Paper paper in papers)
             {
-                if(paper.Id < 5)
+                if(paper.Id>48 && paper.Id<56)
                 {
                     try
                     {
