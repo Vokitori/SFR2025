@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Paper_By_Country_Consumer.NewFolder
 {
-    internal class Class1
+    internal class CountryPaperCount
     {
     }
 }
