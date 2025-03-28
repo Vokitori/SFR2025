@@ -31,11 +31,11 @@ class Program
             Url = "http://localhost:8081"
         };
 
-        const string connectionUri = "mongodb+srv://admin:admin@papers.h8l9c64.mongodb.net/?retryWrites=true&w=majority&appName=Papers";
+        const string connectionUri = "mongodb+srv://sfr2025:X0kUfHUdrf8ohI0i@papers.h8l9c64.mongodb.net/?retryWrites=true&w=majority&appName=Papers";
         var settings = MongoClientSettings.FromConnectionString(connectionUri);
         settings.ServerApi = new ServerApi(ServerApiVersion.V1);
         var client = new MongoClient(settings);
-        var database = client.GetDatabase("admin");
+        var database = client.GetDatabase("papers");
         var collection = database.GetCollection<Paper>("Papers");
 
         using var schemaRegistry = new CachedSchemaRegistryClient(schemaRegistryConfig);
@@ -99,8 +99,13 @@ class Program
                         Console.WriteLine($"Keywords: {string.Join(", ", paper.Keywords)}");
 
 
-                  
 
+                        bool exists = collection.Find(p => p.Id == paper.Id).Any();
+                        if (exists)
+                        {
+                            Console.WriteLine("❌ Paper already exists in MongoDB.");
+                            continue;
+                        }
                         collection.InsertOne(paper);
                         Console.WriteLine("✅ Gespeichert in MongoDB.");
                     }
