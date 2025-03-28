@@ -1,18 +1,27 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>net8.0</TargetFramework>
-    <RootNamespace>Paper_By_Country_Consumer</RootNamespace>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net8.0</TargetFramework>
+		<RootNamespace>Paper_By_Country_Consumer</RootNamespace>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
 
-  <ItemGroup>
-    <PackageReference Include="Confluent.Kafka" Version="2.8.0" />
-    <PackageReference Include="Confluent.SchemaRegistry" Version="2.8.0" />
-    <PackageReference Include="Confluent.SchemaRegistry.Serdes.Avro" Version="2.8.0" />
-    <PackageReference Include="MongoDB.Driver" Version="3.3.0" />
-  </ItemGroup>
+		<!-- AoT-Einstellungen -->
+		<PublishAot>true</PublishAot>
+		<PublishTrimmed>true</PublishTrimmed>
+		<TrimMode>full</TrimMode>
+		<InvariantGlobalization>true</InvariantGlobalization>
+		<IlcGenerateCompleteTypeMetadata>false</IlcGenerateCompleteTypeMetadata>
+		<!-- Optional, bei Reflection-Problemen deaktivieren -->
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Confluent.Kafka" Version="2.8.0" />
+		<PackageReference Include="Confluent.SchemaRegistry" Version="2.8.0" />
+		<PackageReference Include="Confluent.SchemaRegistry.Serdes.Avro" Version="2.8.0" />
+		<PackageReference Include="MongoDB.Driver" Version="3.3.0" />
+	</ItemGroup>
 
 </Project>
+
