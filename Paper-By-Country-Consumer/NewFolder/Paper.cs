@@ -1,7 +1,5 @@
 ﻿using Avro;
 using Avro.Specific;
-using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Bson;
 using System.Collections.Generic;
 
 public class Paper : ISpecificRecord
@@ -21,16 +19,10 @@ public class Paper : ISpecificRecord
 
     public Schema Schema => _SCHEMA;
 
-    [BsonId]
-    [BsonRepresentation(BsonType.Int32)]
     public int Id { get; set; }
-    [BsonElement("name")]
     public string Name { get; set; }
-    [BsonElement("authors")]
     public List<string> Authors { get; set; }
-    [BsonElement("keywords")]
     public List<string> Keywords { get; set; }
-    [BsonElement("countryOfPublication")]
     public string CountryOfPublication { get; set; }
 
     public object Get(int fieldPos)

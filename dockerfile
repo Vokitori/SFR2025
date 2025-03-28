@@ -1,12 +1,7 @@
 # Stage 1: Build + AoT
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 
-ENV TMPDIR=/app/tmp
-
-RUN mkdir /app/tmp
-
 WORKDIR /app
-
 
 # 🔧 Voraussetzungen für AoT-Build installieren
 RUN apt-get update && apt-get install -y clang zlib1g-dev
@@ -18,7 +13,7 @@ COPY ./Paper-By-Country-Consumer ./
 RUN dotnet publish -c Release -r linux-x64 -p:PublishAot=true --self-contained true -o /app/publish
 
 # Stage 2: Minimaler Runtime-Container
-FROM debian:bullseye-slim AS final
+FROM debian:bookworm AS final
 
 # Benötigte Tools für native Binarys
 RUN apt-get update && apt-get install -y \
@@ -31,4 +26,4 @@ WORKDIR /app
 COPY --from=build /app/publish ./
 
 # AoT-Binary ist bereits ausführbar
-ENTRYPOINT ["./Paper_By_Country_Consumer"]
+ENTRYPOINT ["./Paper-By-Country-Consumer"]

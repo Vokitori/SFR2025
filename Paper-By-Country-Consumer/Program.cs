@@ -5,8 +5,11 @@ using Confluent.Kafka;
 using Confluent.Kafka.SyncOverAsync;
 using Confluent.SchemaRegistry;
 using Confluent.SchemaRegistry.Serdes;
-using MongoDB.Driver;
-
+using Paper_By_Country_Consumer.NewFolder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Npgsql;
 
 class Program
 {
@@ -31,22 +34,23 @@ class Program
             Url = "http://localhost:8081"
         };
 
-        const string connectionUri = "mongodb+srv://sfr2025:X0kUfHUdrf8ohI0i@papers.h8l9c64.mongodb.net/?retryWrites=true&w=majority&appName=Papers";
-        var settings = MongoClientSettings.FromConnectionString(connectionUri);
-        settings.ServerApi = new ServerApi(ServerApiVersion.V1);
-        var client = new MongoClient(settings);
-        var database = client.GetDatabase("papers");
-        var collection = database.GetCollection<Paper>("Papers");
+        var connectionString = "Host=localhost;Username=postgres;Password=admin;Database=sfr2025";
+
+        using (var connection = new NpgsqlConnection(connectionString))
+        {
+            connection.Open();
+            Console.WriteLine("connection open");
+        }
 
         using var schemaRegistry = new CachedSchemaRegistryClient(schemaRegistryConfig);
-        
-        
+
+        Console.WriteLine("2");
         //using var consumer = new ConsumerBuilder<string, long>(config)
         //    .SetKeyDeserializer(Deserializers.Utf8)
         //    .SetValueDeserializer(new AvroDeserializer<long>(schemaRegistry).AsSyncOverAsync())
         //    .Build();
 
-        
+
 
         //consumer.Subscribe("PROCESSED_PAPERS");
 
@@ -74,8 +78,10 @@ class Program
             .SetValueDeserializer(new AvroDeserializer<Paper>(schemaRegistry).AsSyncOverAsync())
             .Build())
         {
+            Console.WriteLine("3");
 
             consumer2.Subscribe(topic);
+            Console.WriteLine("4");
 
             CancellationTokenSource cts = new CancellationTokenSource();
             Console.CancelKeyPress += (_, e) =>
@@ -100,14 +106,14 @@ class Program
 
 
 
-                        bool exists = collection.Find(p => p.Id == paper.Id).Any();
-                        if (exists)
-                        {
-                            Console.WriteLine("❌ Paper already exists in MongoDB.");
-                            continue;
-                        }
-                        collection.InsertOne(paper);
-                        Console.WriteLine("✅ Gespeichert in MongoDB.");
+                        //bool exists = collection.Find(p => p.Id == paper.Id).Any();
+                        //if (exists)
+                        //{
+                        //    Console.WriteLine("❌ Paper already exists in MongoDB.");
+                        //    continue;
+                        //}
+                        //collection.InsertOne(paper);
+                        //Console.WriteLine("✅ Gespeichert in MongoDB.");
                     }
                     catch (ConsumeException e)
                     {
