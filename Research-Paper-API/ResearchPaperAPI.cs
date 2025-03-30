@@ -48,25 +48,32 @@ class KafkaProducer
             string json = File.ReadAllText("research_papers_with_country.json");
             List<Paper>? papers = JsonSerializer.Deserialize<List<Paper>>(json);
 
-            foreach (Paper paper in papers)
+            
+            for (int i = 0; i < papers.Count; i++)
             {
-                if(paper.Id>0 && paper.Id<=5)
-                {
-                    try
-                    {
-                        var message = new Message<string, Paper>
-                        {
-                            Key = Guid.NewGuid().ToString(),
-                            Value = paper
-                        };
+                var paper = papers[i];
 
-                        var deliveryReport = await producer.ProduceAsync(topic, message);
-                        Console.WriteLine($"Produced message to {deliveryReport.TopicPartitionOffset}");
-                    }
-                    catch (ProduceException<Null, string> e)
+                try
+                {
+                    var message = new Message<string, Paper>
                     {
-                        Console.WriteLine($"Fehler beim Senden: {e.Error.Reason}");
-                    }
+                        Key = Guid.NewGuid().ToString(),
+                        Value = paper
+                    };
+
+                    var deliveryReport = await producer.ProduceAsync(topic, message);
+                    Console.WriteLine($"Produced message {i + 1} to {deliveryReport.TopicPartitionOffset}");
+                }
+                catch (ProduceException<string, Paper> e)
+                {
+                    Console.WriteLine($"Fehler beim Senden: {e.Error.Reason}");
+                }
+
+                // Nach jedem 5. Paper (außer beim letzten) warten
+                if ((i + 1) % 5 == 0 && i + 1 < papers.Count)
+                {
+                    Console.WriteLine("Press any key to send next 5 papers...");
+                    Console.ReadKey();
                 }
             }
         }
