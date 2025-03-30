@@ -50,16 +50,10 @@ class KafkaProducer
 
             foreach (Paper paper in papers)
             {
-                if(paper.Id>69 && paper.Id<74)
+                if(paper.Id>0 && paper.Id<=5)
                 {
                     try
                     {
-                        //var researchPaper = new GenericRecord(avroSchema);
-                        //researchPaper.Add("Id", paper.Id);
-                        //researchPaper.Add("Name", paper.Name);
-                        //researchPaper.Add("Authors", paper.Authors);
-                        //researchPaper.Add("Keywords", paper.Keywords);
-
                         var message = new Message<string, Paper>
                         {
                             Key = Guid.NewGuid().ToString(),

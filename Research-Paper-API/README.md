@@ -12,3 +12,5 @@
 
 start consumer inside container using : ./kafka-console-consumer.sh --bootstrap-server broker-1:19092,broker-2:19092,broker-3:19092 --topic research-paper --from-beginning
 
+Create Postgres DB, for naming look at the connection string
+Table will be created by WriteToDBConsumer

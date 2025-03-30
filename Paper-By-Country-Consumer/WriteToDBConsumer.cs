@@ -4,7 +4,7 @@ using Confluent.SchemaRegistry;
 using Confluent.SchemaRegistry.Serdes;
 using Paper_By_Country_Consumer;
 
-class Program
+class WriteToDBConsumer
 {
    
     static void Main(string[] args)

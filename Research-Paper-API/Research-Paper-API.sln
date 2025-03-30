@@ -5,9 +5,9 @@ VisualStudioVersion = 17.9.34701.34
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Research-Paper-API", "Research-Paper-API.csproj", "{6A3E2767-0576-4C5D-A679-78B51CF7C357}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamProcessor", "..\StreamProcessor\StreamProcessor.csproj", "{AAAD6D15-802E-4071-9B42-C68DE74AFE06}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stream-Processor", "..\StreamProcessor\Stream-Processor.csproj", "{AAAD6D15-802E-4071-9B42-C68DE74AFE06}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paper-By-Country-Consumer", "..\Paper-By-Country-Consumer\Paper-By-Country-Consumer.csproj", "{8BF46153-7E28-43F4-8E74-45D6AD59399E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Write-To-DB-Consumer", "..\Paper-By-Country-Consumer\Write-To-DB-Consumer.csproj", "{8BF46153-7E28-43F4-8E74-45D6AD59399E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -28,7 +28,7 @@ using Streamiz.Kafka.Net.Processors;
 //stream-task[1|0] Exception handler choose to FAIL the processing, no more records would be sent.
 /// </summary>
 
-class Program
+class StreamProcessor
 {
     static void Main(string[] args)
     {
