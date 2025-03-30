@@ -30,11 +30,5 @@
 		<PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.3" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <None Update="appsettings.json">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </None>
-	</ItemGroup>
-
 </Project>
 
