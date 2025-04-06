@@ -3,23 +3,16 @@
 	<PropertyGroup>
 		<OutputType>Exe</OutputType>
 		<TargetFramework>net8.0</TargetFramework>
-		<RootNamespace>Paper_By_Country_Consumer</RootNamespace>
+		<RootNamespace>Paper-By-Country-Consumer</RootNamespace>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-
-		<!-- AoT-Einstellungen -->
-		<PublishAot>true</PublishAot>
-		<PublishTrimmed>true</PublishTrimmed>
-		<TrimMode>full</TrimMode>
-		<InvariantGlobalization>true</InvariantGlobalization>
-		<IlcGenerateCompleteTypeMetadata>false</IlcGenerateCompleteTypeMetadata>
-		<!-- Optional, bei Reflection-Problemen deaktivieren -->
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Confluent.Kafka" Version="2.8.0" />
-		<PackageReference Include="Confluent.SchemaRegistry" Version="2.8.0" />
-		<PackageReference Include="Confluent.SchemaRegistry.Serdes.Avro" Version="2.8.0" />
+		<PackageReference Include="Confluent.Kafka" Version="2.3.0" />
+		<PackageReference Include="Confluent.SchemaRegistry" Version="2.3.0" />
+		<PackageReference Include="Confluent.SchemaRegistry.Serdes.Avro" Version="2.3.0" />
+		<PackageReference Include="KafkaFlow.Serializer.SchemaRegistry.ConfluentProtobuf" Version="3.1.0" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.3" />
 		<PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.3" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.3" />
@@ -28,6 +21,7 @@
 		<PackageReference Include="Npgsql" Version="9.0.3" />
 		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
 		<PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.3" />
+		<PackageReference Include="System.Diagnostics.Tools" Version="4.3.0" />
 	</ItemGroup>
 
 </Project>

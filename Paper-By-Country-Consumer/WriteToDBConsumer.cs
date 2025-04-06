@@ -4,20 +4,20 @@ using Confluent.SchemaRegistry;
 using Confluent.SchemaRegistry.Serdes;
 using Paper_By_Country_Consumer;
 
-class WriteToDBConsumer
+public class WriteToDBConsumer
 {
-   
     static void Main(string[] args)
     {
+        Console.WriteLine("program started");
        var consumerConfig = new ConsumerConfig
         {
-            BootstrapServers = "localhost:29092",
+            BootstrapServers = "broker-1:19092",
             GroupId ="research-paper-consumer-group",
             AutoOffsetReset = AutoOffsetReset.Earliest
         };
         var schemaRegistryConfig = new SchemaRegistryConfig
         {
-            Url = "http://localhost:8081"
+            Url = "http://schema-registry:8081"
         };
 
         DbHelper.EnsureTableExists();
@@ -28,6 +28,7 @@ class WriteToDBConsumer
         using (var researchPaperConsumer = new ConsumerBuilder<string, Paper>(consumerConfig)
             .SetKeyDeserializer(Deserializers.Utf8)
             .SetValueDeserializer(new AvroDeserializer<Paper>(schemaRegistry).AsSyncOverAsync())
+            .SetErrorHandler((_, e) => {/* Error handling here? */})
             .Build())
         {
 

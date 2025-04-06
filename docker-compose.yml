@@ -124,21 +124,19 @@ services:
     networks:
       - my_network
 
-  # paper-consumer:
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile
-  #   container_name: paper-consumer
-  #   networks:
-  #     - my_network
-  #   depends_on: 
-  #     - broker-1
-  #     - schema-registry
-  #     - postgres
-  #   environment:
-  #     - KAFKA_BOOTSTRAP_SERVERS=broker-1:19092
-  #     - SCHEMA_REGISTRY_URL=http://schema-registry:8081
-  #     - DB_HOST=my-postgres
+  paper-consumer:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: paper-consumer
+    networks:
+      - my_network
+    depends_on: 
+      - broker-1
+      - schema-registry
+    environment:
+      - KAFKA_BOOTSTRAP_SERVERS=broker-1:29092
+      - SCHEMA_REGISTRY_URL=http://schema-registry:8081
 
   # postgres:
   #   image: postgres:latest

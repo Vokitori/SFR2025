@@ -1,10 +1,11 @@
 ﻿using Npgsql;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Paper_By_Country_Consumer
 {
     public static class DbHelper
     {
-        private static string _connectionString = "Host=localhost;Username=postgres;Password=admin;Database=sfr2025";
+        private static string _connectionString = "Host=host.docker.internal;Username=postgres;Password=admin;Database=sfr2025";
 
         public static void EnsureTableExists()
         {
