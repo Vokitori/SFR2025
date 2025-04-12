@@ -35,7 +35,7 @@ class StreamProcessor
         var config = new StreamConfig<StringSerDes, SchemaAvroSerDes<Paper>>
         {
             ApplicationId = "research-paper-stream",
-            BootstrapServers = "localhost:29092",
+            BootstrapServers = "localhost:29092,localhost:39092,localhost:49092",
             AutoOffsetReset = Confluent.Kafka.AutoOffsetReset.Earliest,
             SchemaRegistryUrl = "http://localhost:8081"
         };

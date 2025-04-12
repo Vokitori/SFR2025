@@ -12,7 +12,7 @@ class KafkaProducer
 {
     public static async Task Main(string[] args)
     {
-        string bootstrapServers = "localhost:29092";
+        string bootstrapServers = "localhost:29092,localhost:39092,localhost:49092";
         string schemaRegistryUrl = "http://localhost:8081";
         string topic = "research-paper";
 

@@ -1,0 +1,52 @@
+name: Build Consumer Docker Image
+
+on:
+  push:
+    branches:
+      - argocd  # or main, depending on where you work
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y zlib1g-dev
+
+      - name: Build Docker Image
+        run: |
+          docker build -t consumer-app:latest ./Write-To-DB-Consumer
+
+      - name: Export Docker Image as Archive (for KIND use)
+        run: |
+          docker save consumer-app:latest -o consumer.tar
+
+      - name: Upload image artifact (optional)
+        uses: actions/upload-artifact@v4
+        with:
+          name: consumer-image
+          path: consumer.tar
+
+      - name: Authenticate with GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+            registry: ghcr.io
+            username: ${{ github.actor }}
+            password: ${{ secrets.GHCR_TOKEN }}
+
+      - name: Build and Push Docker Image
+        run: |
+          IMAGE_NAME=ghcr.io/vokitori/consumer-app:latest
+          docker build -t $IMAGE_NAME ./Write-To-DB-Consumer
+          docker push $IMAGE_NAME
+
+
+        
