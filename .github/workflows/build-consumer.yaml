@@ -3,7 +3,7 @@ name: Build Consumer Docker Image
 on:
   push:
     branches:
-      - StreamProcessor_CountryPublished  # oder main, je nachdem wo du arbeitest
+      - argocd  # oder main, je nachdem wo du arbeitest
 
 jobs:
   build:
