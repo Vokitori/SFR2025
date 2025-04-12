@@ -21,7 +21,7 @@ RUN apt-get update && \
     echo "deb [signed-by=/usr/share/keyrings/confluent.gpg] https://packages.confluent.io/deb/7.6 stable main" > /etc/apt/sources.list.d/confluent.list && \
     apt-get update && \
     apt-get install -y librdkafka-dev
-
+    apt-get update && apt-get install -y clang gcc
 
 WORKDIR /app
 
