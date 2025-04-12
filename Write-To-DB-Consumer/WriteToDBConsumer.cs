@@ -9,15 +9,15 @@ class WriteToDBConsumer
    
     static void Main(string[] args)
     {
-       var consumerConfig = new ConsumerConfig
+        var consumerConfig = new ConsumerConfig
         {
-            BootstrapServers = "host.docker.internal:29092",
-            GroupId ="research-paper-consumer-group",
+            BootstrapServers = "broker-1:19092,broker-2:19092,broker-3:19092",
+            GroupId = "research-paper-consumer-group",
             AutoOffsetReset = AutoOffsetReset.Earliest
         };
         var schemaRegistryConfig = new SchemaRegistryConfig
         {
-            Url = "http://host.docker.internal:8081"
+            Url = "http://schema-registry:8081"
         };
 
         DbHelper.EnsureTableExists();
