@@ -3,7 +3,7 @@ name: Build Consumer Docker Image
 on:
   push:
     branches:
-      - argocd  # or main, depending on where you work
+      - main 
 
 jobs:
   build:
