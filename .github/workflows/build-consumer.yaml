@@ -36,10 +36,17 @@ jobs:
           path: consumer.tar
 
       - name: Authenticate with GitHub Container Registry
-        run: echo "${{ secrets.PAT_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+        uses: docker/login-action@v2
+        with:
+            registry: ghcr.io
+            username: ${{ github.actor }}
+            password: ${{ secrets.GHCR_TOKEN }}
 
       - name: Build and Push Docker Image
         run: |
           IMAGE_NAME=ghcr.io/vokitori/consumer-app:latest
           docker build -t $IMAGE_NAME ./Write-To-DB-Consumer
           docker push $IMAGE_NAME
+
+
+        
