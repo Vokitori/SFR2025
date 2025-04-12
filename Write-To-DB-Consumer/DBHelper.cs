@@ -4,7 +4,7 @@ namespace Paper_By_Country_Consumer
 {
     public static class DbHelper
     {
-        private static string _connectionString = "Host=localhost;Username=postgres;Password=admin;Database=sfr2025";
+        private static string _connectionString = "Host=host.docker.internal;Port=5432;Username=postgres;Password=admin;Database=sfr2025";
 
         public static void EnsureTableExists()
         {
