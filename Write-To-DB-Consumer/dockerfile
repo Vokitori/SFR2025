@@ -6,6 +6,8 @@ WORKDIR /app
 # Projektdateien kopieren
 COPY . .
 
+RUN apt-get update && apt-get install -y clang gcc
+
 # Normaler Publish (ohne AOT, Framework-abhängig)
 RUN dotnet publish Write-To-DB-Consumer.csproj \
     -c Release \
@@ -20,8 +22,8 @@ RUN apt-get update && \
     curl -fsSL https://packages.confluent.io/deb/7.6/archive.key | gpg --dearmor -o /usr/share/keyrings/confluent.gpg && \
     echo "deb [signed-by=/usr/share/keyrings/confluent.gpg] https://packages.confluent.io/deb/7.6 stable main" > /etc/apt/sources.list.d/confluent.list && \
     apt-get update && \
-    apt-get install -y librdkafka-dev && \
-    apt-get update && apt-get install -y clang gcc
+    apt-get install -y librdkafka-dev
+    
 
 WORKDIR /app
 
