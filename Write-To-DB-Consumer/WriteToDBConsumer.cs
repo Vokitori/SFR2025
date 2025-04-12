@@ -11,13 +11,13 @@ class WriteToDBConsumer
     {
        var consumerConfig = new ConsumerConfig
         {
-            BootstrapServers = "localhost:29092",
+            BootstrapServers = "host.docker.internal:29092",
             GroupId ="research-paper-consumer-group",
             AutoOffsetReset = AutoOffsetReset.Earliest
         };
         var schemaRegistryConfig = new SchemaRegistryConfig
         {
-            Url = "http://localhost:8081"
+            Url = "http://host.docker.internal:8081"
         };
 
         DbHelper.EnsureTableExists();
@@ -30,7 +30,6 @@ class WriteToDBConsumer
             .SetValueDeserializer(new AvroDeserializer<Paper>(schemaRegistry).AsSyncOverAsync())
             .Build())
         {
-
             researchPaperConsumer.Subscribe(topicResearchPaper);
 
             CancellationTokenSource cts = new CancellationTokenSource();
