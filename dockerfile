@@ -26,4 +26,5 @@ WORKDIR /app
 COPY --from=build /app/publish ./
 
 # AoT-Binary ist bereits ausführbar
+#ENTRYPOINT ["./Paper-By-Country-Consumer"]
 ENTRYPOINT ["./Paper-By-Country-Consumer"]

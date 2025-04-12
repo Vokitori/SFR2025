@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: paper-consumer
+  labels:
+    app: paper-consumer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: paper-consumer
+  template:
+    metadata:
+      labels:
+        app: paper-consumer
+    spec:
+      containers:
+        - name: consumer
+          image: consumer-app:latest
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: KAFKA_BOOTSTRAP_SERVERS
+              value: broker-1:19092
+            - name: SCHEMA_REGISTRY_URL
+              value: http://schema-registry:8081
+            - name: DB_HOST
+              value: my-postgres
+          ports:
+            - containerPort: 5000
