@@ -16,8 +16,8 @@ spec:
     spec:
       containers:
         - name: consumer
-          image: consumer-app:latest
-          imagePullPolicy: IfNotPresent
+          image: ghcr.io/vokitori/consumer-app:latest
+          imagePullPolicy: Always
           env:
             - name: KAFKA_BOOTSTRAP_SERVERS
               value: broker-1:19092
