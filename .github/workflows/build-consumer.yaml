@@ -3,7 +3,7 @@ name: Build Consumer Docker Image
 on:
   push:
     branches:
-      - argocd  # oder main, je nachdem wo du arbeitest
+      - argocd  # or main, depending on where you work
 
 jobs:
   build:
@@ -15,6 +15,12 @@ jobs:
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
+
+      # Add this step to install zlib
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y zlib1g-dev
 
       - name: Build Docker Image
         run: |
