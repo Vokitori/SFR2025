@@ -1,0 +1,30 @@
+# Stage 1: Build
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+
+WORKDIR /app
+
+# Projektdateien kopieren
+COPY . .
+
+# Normaler Publish (ohne AOT, Framework-abhängig)
+RUN dotnet publish Write-To-DB-Consumer.csproj \
+    -c Release \
+    -o /app/publish
+
+# Stage 2: Runtime-Container mit Kafka-Abhängigkeiten
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
+
+# Benötigte Libraries für Kafka-Client .
+RUN apt-get update && \
+    apt-get install -y curl gnupg && \
+    curl -fsSL https://packages.confluent.io/deb/7.6/archive.key | gpg --dearmor -o /usr/share/keyrings/confluent.gpg && \
+    echo "deb [signed-by=/usr/share/keyrings/confluent.gpg] https://packages.confluent.io/deb/7.6 stable main" > /etc/apt/sources.list.d/confluent.list && \
+    apt-get update && \
+    apt-get install -y librdkafka-dev
+
+
+WORKDIR /app
+
+COPY --from=build /app/publish ./
+
+ENTRYPOINT ["dotnet", "Write-To-DB-Consumer.dll"]
