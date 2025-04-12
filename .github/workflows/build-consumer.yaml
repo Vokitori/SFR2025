@@ -25,7 +25,7 @@ jobs:
           docker save consumer-app:latest -o consumer.tar
 
       - name: Upload image artifact (optional)
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: consumer-image
           path: consumer.tar
